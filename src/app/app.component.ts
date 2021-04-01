@@ -1,10 +1,23 @@
-import { Component } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'ngx-tailwind';
+  constructor(@Inject(DOCUMENT) private document: Document) {}
+
+  get isDarkMode() {
+    return this.document.body.classList.contains('dark');
+  }
+
+  toggleTheme() {
+    if (this.isDarkMode) {
+      this.document.body.classList.remove('dark');
+    } else {
+      this.document.body.classList.add('dark');
+    }
+  }
 }
